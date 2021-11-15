@@ -12,32 +12,44 @@ const categoryNames = [
   "Острые",
   "Закрытые",
 ];
-const sortIems = [
+const sortItems = [
   { name: "популярности", type: "popular", order: "desc" },
   { name: "цене", type: "price", order: "desc" },
-  { name: "алфавит", type: "name", order: "asc" },
+  { name: "алфавиту", type: "name", order: "asc" },
 ];
 
 function Home() {
   const dispatch = useDispatch();
-  
- 
 
   const items = useSelector((data) => data.pizzas.items.data);
-  const {category, sortBy} = useSelector((data) => data.filters)
+  const { category, sortBy } = useSelector((data) => data.filters);
   const isLoaded = useSelector((data) => data.pizzas.isLoaded);
 
-  
   React.useEffect(() => {
     dispatch(fetchPizzas(sortBy, category));
   }, [category, sortBy]);
-console.log(items)
+
+  const onSelectCategory = React.useCallback((index) => {
+    dispatch(setCategory(index));
+  }, []);
+
+  const onSelectSortType = React.useCallback((type) => {
+    dispatch(setSortBy(type));
+  }, []);
 
   return (
     <>
       <div className="top-content">
-        <Categories />
-        <SortPopup />
+        <Categories
+          items={categoryNames}
+          activeCategory={category}
+          onClickCategory={onSelectCategory}
+        />
+        <SortPopup
+          items={sortItems}
+          activeCategory={sortBy}
+          onSelectSort={(type) => onSelectSortType(type)}
+        />
       </div>
       <h1>Все пиццы</h1>
       <div className="pizza-container">

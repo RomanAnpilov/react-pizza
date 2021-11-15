@@ -1,5 +1,5 @@
 import React from "react";
-import {Home,  /*Cart */} from "./pages";
+import {/* Home , */ Cart} from "./pages";
 import {Header} from "./components";
 
 
@@ -8,7 +8,8 @@ function App() {
     <div className="wrapper clear">
       <Header />
       <div className="content">
-        <Home />
+        {/* <Home /> */}
+        <Cart />
       </div>
     </div>
   );

@@ -1,19 +1,53 @@
+import classNames from "classnames";
 import React from "react";
 
-const PizzaCard = ({id, name, imageUrl, price, types, sizes}) => {
+const PizzaCard = ({ id, name, imageUrl, price, types, sizes }) => {
+  const availableTypes = ["тонкое", "традиционное"];
+  const availableSizes = [26, 30, 40];
+
+  const [activeType, setActiveType] = React.useState(types[0]);
+  const [activeSize, setActiveSize] = React.useState(availableSizes.indexOf(sizes[0]));
+
+  const onSelectType = (index) => {
+    setActiveType(index);
+  }
+
+  const onSelectSize = (index) => {
+    setActiveSize(index);
+  }
+
   return (
     <div className="pizza-card">
       <img src={imageUrl} alt="pizza" />
       <h4>{name}</h4>
       <div className="selector">
         <ul>
-          <li className="active">тонкое</li>
-          <li>традиционное</li>
+          {availableTypes.map((type, index) => (
+            <li
+            key={type}
+              onClick={() => onSelectType(index)}
+              className={classNames(
+                `${activeType === index ? "active" : ""}`,
+                `${!types.includes(index) ? "disabled" : ""}`
+              )}
+            >
+              {type}
+            </li>
+          ))}
         </ul>
         <ul>
-          <li className="active">26 см.</li>
-          <li>30 см.</li>
-          <li>40 см.</li>
+        {availableSizes.map((size, index) => (
+            <li
+            key={size}
+              onClick={() => onSelectSize(index)}
+              className={classNames(
+                `${activeSize === index ? "active" : ""}`,
+                `${!sizes.includes(size) ? "disabled" : ""}`
+              )}
+            >
+              {size} см.
+            </li>
+          ))}
         </ul>
       </div>
       <div className="bottom">
