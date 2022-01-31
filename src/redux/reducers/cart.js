@@ -13,7 +13,15 @@ const cart = (state = initialState, action) => {
         ? [action.payload]
         : [...state.items[action.payload.id], action.payload];
 
-      const itemsCount = currentPizzaItems.length;
+        
+
+      const totalCount = currentPizzaItems.length;
+      const totalPrice = getTotalPrice()
+
+
+      return {...state,
+                    
+    }
     default:
       console.log();
   }

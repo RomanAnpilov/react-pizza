@@ -11,7 +11,7 @@ const filters = (state = initialState, action) => {
     case "SET_CATEGORY":
       return {
         ...state,
-        category: action.payload,
+        category: action.payload.filters(),
       };
 
     case "SET_SORT_BY":
